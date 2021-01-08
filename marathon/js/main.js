@@ -213,7 +213,7 @@ game.StatesNew.menu = function() {
 			console.log("game.StatesNew.menu -- create,btn-ready click.");
 			game.state.start('play');
 		});
-				
+		game.state.start('play');
 	};
 };
 //game.state.add('play', game.StatesNew.play)调用时，game.StatesNew.play会被调用。
@@ -254,7 +254,6 @@ game.StatesNew.play = function() {
 		this.soundScore = game.add.sound('score_sound');
 		this.soundPlay.loop = true;
 		this.soundPlay.play();
-
 		//player
     	this._buddyPos = game.height - _Con_sprite.buddy.height -(_Con_sprite.ground.height * 2 / 3) - 60;
 		this._buddy = game.add.sprite(0, this._buddyPos, "buddy");
@@ -388,14 +387,24 @@ game.StatesNew.play = function() {
 	this.updateTime = function() {
 		console.log("---->game.StatesNew.play---updateTime,isGameOver:" + isGameOver);
 		if (!isGameOver) {
-			//当this.startTime:undefined时，[Date.now() - this.startTime]:NaN.
+			
 			console.log("---->game.StatesNew.play---updateTime,Date.now():" + Date.now() + ",this.startTime:" + this.startTime);
 			//比如：updateTime,Date.now():1609991434014,this.startTime:1609991433612
-			//
 			console.log("---->game.StatesNew.play---updateTime,[Date.now() - this.startTime]:" + (Date.now() - this.startTime));
 
 			var str = prefixInteger(Date.now() - this.startTime, 6),
 				text = str.substr(0, 3);
+			/*
+			1.当this.startTime:undefined时，
+				[Date.now() - this.startTime]:NaN，
+				str=000NaN,
+				则str.substr(0, 3)=000
+			2.当updateTime,Date.now():1610011416223,this.startTime:1610011412979,
+				[Date.now() - this.startTime]:3245,
+				str:003245,
+				[text = str.substr(0, 3)]:003
+			
+			*/
 			console.log("---->game.StatesNew.play---updateTime,str:" + str);
 			console.log("---->game.StatesNew.play---updateTime,[text = str.substr(0, 3)]:" + str.substr(0, 3));
 			this.timeText.text = text;
