@@ -33,7 +33,7 @@ function create() {
 	platforms = game.add.group();// Phaser.GameObjectFactory - Phaser.Group 
 	platforms.enableBody = true;
 	var ground = platforms.create(0, game.world.height - 64, 'ground');//DisplayObject -
-	ground.scale.setTo(2, 2);//setTo 所属对象 create.player
+	ground.scale.setTo(1, 1);//setTo 所属对象 create.player
 	ground.body.immovable = true;
 	var ledge = platforms.create(400, 400, 'ground');
 	ledge.body.immovable = true;
@@ -75,7 +75,7 @@ function update() {
 	    {
 					console.log("update(),cursors.left.isDown = true.");
 	        player.body.velocity.x = -150;
-	        player.animations.play('left').destor;
+	        player.animations.play('left');
 	    }
 	    else if (cursors.right.isDown)
 	    {
